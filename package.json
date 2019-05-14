@@ -1,0 +1,63 @@
+{
+  "name": "@setis/component-event",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "alex",
+    "email": "setis-0@mail.ru"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "os": [
+    "linux"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "cleanup:src": "find ./src -type f \\( -name \"*.js\" -o  -name \"*.js.map\" -o -name \"*.d.ts\" \\) -delete",
+    "cleanup:generate:types": "find -name '*.d.ts' -not -path './node_modules/*' -delete",
+    "cleanup:generate:js": "find -name '*.js' -not -path './node_modules/*' -delete",
+    "cleanup:generate": "npm run cleanup:generate:types; npm run cleanup:generate:js",
+    "cleanup:node": "rm -rf node_modules;rm -rf package-lock.json",
+    "cleanup:dist": "rm -rf dist",
+    "cleanup:test": "rm -rf dist/test",
+    "cleanup:build": "npm run cleanup:src; npm run cleanup:dist;",
+    "cleanup": "npm run cleanup:build;npm run cleanup:node",
+    "prepublishOnly": "npm run build",
+    "build": "npm run build:src; npm run build:test",
+    "build:src": "npm run cleanup:build; tsc -p tsconfig.build.json",
+    "build:test": "npm run cleanup:test; tsc -p tsconfig.test.json; npm run test:js",
+    "test:debug": "node $NODE_DEBUG_OPTION --require ts-node/register test/index.ts",
+    "test:ts": "node_modules/.bin/mocha -r ts-node/register test/index.ts",
+    "test:js": "node_modules/.bin/mocha dist/test/index.js",
+    "run:debug": "node $NODE_DEBUG_OPTION --require ts-node/register src/index.ts",
+    "run:ts": "node_modules/.bin/ts-node -p tsconfig.json src/index.ts",
+    "run:js": "node dist/test/index.js",
+    "example:debug": "node $NODE_DEBUG_OPTION --require ts-node/register example/index.ts",
+    "example:ts": "node_modules/.bin/ts-node -p tsconfig.json example/index.ts"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "ts-interface-checker": "^0.1.7",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/assert": "0.0.31",
+    "@types/chai": "^4.1.7",
+    "@types/lodash": "^4.14.108",
+    "@types/microtime": "^2.1.0",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "^10.0.8",
+    "@types/uuid": "^3.4.3",
+    "assert": "^1.4.1",
+    "chai": "^4.2.0",
+    "microtime": "^2.1.7",
+    "mocha": "^5.1.1",
+    "nyc": "^11.6.0",
+    "ts-interface-builder": "^0.1.8",
+    "ts-node": "^6.0.3",
+    "typescript": "^2.8.3"
+  }
+}

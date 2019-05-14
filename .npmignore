@@ -1,0 +1,8 @@
+.idea
+.nyc_output
+src
+test
+!types
+!dist
+*.log
+tsconfig.json

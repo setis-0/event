@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+
+  "files": [
+    "test/index.ts"
+  ],
+
+  "compilerOptions": {
+    "sourceMap": false
+  }
+
+}
